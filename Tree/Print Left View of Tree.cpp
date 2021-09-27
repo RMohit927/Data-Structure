@@ -5,45 +5,52 @@ using namespace std;
 
 struct Node{
 	int data;
-	struct Node *left, *right;
+	Node *left, *right;
 };
 
-struct Node *newNode(int item){
-	struct Node *temp = (struct Node *)malloc(sizeof(struct Node));
-    temp->data = item;
-    temp->left = temp->right = NULL;
-    return temp;
+Node *newNode(int data){
+	Node *temp = new Node();
+	temp->data = data;
+	temp->left = temp->right = NULL;
+	return temp;
 };
 
-void leftViewUtil(struct Node *root, int level, int *max_level){
+void leftViewUtil(Node *root, int level, int *max_level){
 	if (root == NULL) return;
-    if (*max_level < level)
-    {
-        cout << root->data << " ";
-        *max_level = level;
-    }
-    
+	if (*max_level < level)
+	{
+		cout << root->data << " ";
+		*max_level = level;
+	}
+
 	leftViewUtil(root->left, level + 1, max_level);
-    leftViewUtil(root->right, level + 1, max_level);
+	leftViewUtil(root->right, level + 1, max_level);
 }
 
-void leftView(struct Node *root)
+void leftView(Node *root)
 {
-    int max_level = 0;
-    leftViewUtil(root, 1, &max_level);
+	int max_level = 0;
+	leftViewUtil(root, 1, &max_level);
 }
 
 int main(){
 	fast;
 	Node* root = newNode(10);
-    root->left = newNode(2);
-    root->right = newNode(3);
-    root->left->left = newNode(7);
-    root->left->right = newNode(8);
-    root->right->right = newNode(15);
-    root->right->left = newNode(12);
-    root->right->right->left = newNode(14);
- 
-    leftView(root);
+	root->left = newNode(2);
+	root->right = newNode(3);
+	root->left->left = newNode(7);
+	root->left->right = newNode(8);
+	root->right->right = newNode(15);
+	root->right->left = newNode(12);
+	root->right->right->left = newNode(14);
+
+	leftView(root);
 	return 0;
 }
+
+/*
+	 	10
+	 2		3
+      7    8        12     15
+	                14
+*/
